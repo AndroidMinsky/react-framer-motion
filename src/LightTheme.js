@@ -1,62 +1,72 @@
 import React from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import styled from "styled-components";
 import hero from "./assets/me-light.png";
 
 export default function LightTheme() {
   return (
-    <AnimatePresence initial={false} exitBeforeEnter>
-      <MainContainer>
-        <Title
-          animate={{ opacity: 1 }}
-          transition={{
-            delay: 0.27,
-          }}
-          exit={{ opacity: 0 }}
-        >
-          Hello. My name is Alex and I'm a Fraud Analyst at Oracle by day.
-        </Title>
-        <Img src={hero}></Img>
-        <AboutContainer>
-          <AboutSection>
-            I'm an enthusiastic, self-motivated, reliable, responsible and
-            hardworking person. I'm a mature team worker and adaptable to all
-            challenging situations.
-          </AboutSection>
-          <Fade />
-        </AboutContainer>
-        <DutiesContainer>
-          <DutiesSection>
-            I monitor, diagnose and disposition fraudulent transactions through
-            the use of fraud prevention technologies. Analyze trends and process
-            data collection and metrics.
-          </DutiesSection>
-          <Fade />
-        </DutiesContainer>
-        <ButtonSection>
-          <Button>Wait... What?</Button>
-        </ButtonSection>
-      </MainContainer>
-    </AnimatePresence>
+    <MainContainer
+      initial={{
+        opacity: 0,
+      }}
+      animate={{
+        opacity: 1,
+        transition: {
+          delay: 0.25,
+        },
+      }}
+      exit={{
+        opacity: 0,
+        transition: {
+          delay: 0.1,
+        },
+      }}
+    >
+      <Title>
+        Hello. My name is Alex and I'm a Fraud Analyst at Oracle by day.
+      </Title>
+      <Img src={hero}></Img>
+
+      <AboutContainer>
+        <AboutSection>
+          I'm an enthusiastic, self-motivated, reliable, responsible and
+          hardworking person. I'm a mature team worker and adaptable to all
+          challenging situations.
+        </AboutSection>
+        <Fade />
+      </AboutContainer>
+      <DutiesContainer>
+        <DutiesSection>
+          I monitor, diagnose and disposition fraudulent transactions through
+          the use of fraud prevention technologies. Analyze trends and process
+          data collection and metrics.
+        </DutiesSection>
+        <Fade />
+      </DutiesContainer>
+
+      <ButtonSection>
+        <Button>Wait... What?</Button>
+      </ButtonSection>
+    </MainContainer>
   );
 }
 
-const MainContainer = styled.div`
+const MainContainer = styled(motion.div)`
   display: grid;
   column-gap: 3rem;
-  row-gap: 2rem;
+  row-gap: 3rem;
   grid-template-columns: 23rem 23rem 23rem 23rem;
   grid-template-rows: auto;
   grid-template-areas:
     "title title title photo"
-    "section section sectionTwo sectionTwo"
+    "about about duties duties"
     ". button button .";
-  margin: 0 60rem 0 40rem;
+  // margin: 0 60rem 0 40rem;
   padding-top: 22rem;
   text-align: start;
 `;
 
-const Title = styled(motion.h1)`
+const Title = styled.h1`
   grid-area: title;
   color: black;
   font-size: 9rem;
@@ -70,24 +80,25 @@ const Img = styled.img`
 `;
 
 const AboutContainer = styled.div`
-  grid-area: section;
+  grid-area: about;
   position: relative;
 `;
 
 const AboutSection = styled.p`
   position: relative;
-  font-size: 3rem;
+  font-size: 2.5rem;
+  padding-right: 1rem;
 `;
 
 const DutiesContainer = styled.div`
-  grid-area: sectionTwo;
+  grid-area: duties;
   position: relative;
 `;
 
 const DutiesSection = styled.p`
-  grid-area: sectionTwo;
   position: relative;
-  font-size: 3rem;
+  font-size: 2.5rem;
+  padding-left: 1rem;
 `;
 
 const Fade = styled.p`
@@ -103,16 +114,15 @@ const Fade = styled.p`
 
 const ButtonSection = styled.div`
   grid-area: button;
-`;
-const Button = styled.div`
   position: relative;
+  justify-self: center;
+`;
+const Button = styled.button`
   background-color: #4caf50;
   border: none;
   color: white;
   padding: 15px 32px;
-  text-align: center;
   text-decoration: none;
-  display: inline-block;
+  border-radius: 1rem;
   font-size: 2rem;
-  z-index: 1000;
 `;

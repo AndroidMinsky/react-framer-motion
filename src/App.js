@@ -1,9 +1,11 @@
 import styled from "styled-components";
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import ToggleButton from "./ToggleButton";
 import LightTheme from "./LightTheme";
 import DarkTheme from "./DarkTheme";
+
+import Container from "react-bootstrap/Container";
 
 function App() {
   const [dark, setDark] = useState(false);
@@ -28,8 +30,11 @@ function App() {
       </WhiteSection>
 
       <MainSection>
-        {!dark && <LightTheme />}
-        {dark && <DarkTheme />}
+        <Container>
+          <AnimatePresence exitBeforeEnter>
+            {dark ? <DarkTheme key="dark" /> : <LightTheme key="light" />}
+          </AnimatePresence>
+        </Container>
       </MainSection>
     </>
   );

@@ -5,19 +5,28 @@ import { motion } from "framer-motion";
 
 export default function DarkTheme() {
   return (
-    <Container>
-      <TitleDark
-        key="2"
-        animate={{ opacity: 1 }}
-        transition={{
-          delay: 0.27,
-        }}
-        exit={{ opacity: 0 }}
-      >
+    <MainContainer
+      initial={{
+        opacity: 0,
+      }}
+      animate={{
+        opacity: 1,
+        transition: {
+          delay: 0.25,
+        },
+      }}
+      exit={{
+        opacity: 0,
+        transition: {
+          delay: 0.1,
+        },
+      }}
+    >
+      <TitleDark>
         Hello. My name is Alex and I'm a Web Developer by night.
       </TitleDark>
       <Img src={heroDark} />
-    </Container>
+    </MainContainer>
   );
 }
 
@@ -35,7 +44,7 @@ const TitleDark = styled(motion.h1)`
   position: relative;
 `;
 
-const Container = styled.div`
+const MainContainer = styled(motion.div)`
   display: grid;
   column-gap: 3rem;
   row-gap: 2rem;
@@ -44,6 +53,5 @@ const Container = styled.div`
   grid-template-areas:
     "title title title photo"
     "section section sectionTwo sectionTwo";
-  margin: 0 60rem 0 40rem;
   text-align: start;
 `;
