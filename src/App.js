@@ -5,15 +5,13 @@ import ToggleButton from "./ToggleButton";
 import LightTheme from "./LightTheme";
 import DarkTheme from "./DarkTheme";
 
-import Container from "react-bootstrap/Container";
-
 function App() {
   const [dark, setDark] = useState(false);
   const [width, setWidth] = useState(0);
 
   const themeToggle = () => {
     setDark(!dark);
-    width === 0 ? setWidth("-70vw") : setWidth(0);
+    width === 0 ? setWidth("-75vw") : setWidth(0);
   };
 
   return (
@@ -30,11 +28,9 @@ function App() {
       </WhiteSection>
 
       <MainSection>
-        <Container>
-          <AnimatePresence exitBeforeEnter>
-            {dark ? <DarkTheme key="dark" /> : <LightTheme key="light" />}
-          </AnimatePresence>
-        </Container>
+        <AnimatePresence exitBeforeEnter initial={false}>
+          {dark ? <DarkTheme key="dark" /> : <LightTheme key="light" />}
+        </AnimatePresence>
       </MainSection>
     </>
   );
@@ -43,14 +39,14 @@ function App() {
 export default App;
 
 const WhiteSection = styled(motion.div)`
-  height: 100vh;
-  width: 80vw;
+  height: 100%;
+  width: 85vw;
   background: white;
-  position absolute;
+  position: absolute;
 `;
 
 const MainSection = styled.div`
   height: 100vh;
   width: 100vw;
-  background: black;
+  background: #14171a;
 `;

@@ -23,7 +23,7 @@ const Button = styled(motion.button)`
   font-size: 2.5rem;
   position: absolute;
   top: 25vh;
-  left: calc(80vw - 69px);
+  left: calc(85vw - 69px);
   border: 1px solid;
   border-radius: 5px;
   padding: 2rem 2rem;

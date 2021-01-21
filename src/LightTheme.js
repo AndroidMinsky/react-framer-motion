@@ -3,9 +3,19 @@ import { motion } from "framer-motion";
 import styled from "styled-components";
 import hero from "./assets/me-light.png";
 
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+
+import Navigation from "./Navigation";
+
 export default function LightTheme() {
+  const theme = {
+    color: "black",
+  };
+
   return (
-    <MainContainer
+    <motion.div
       initial={{
         opacity: 0,
       }}
@@ -22,49 +32,50 @@ export default function LightTheme() {
         },
       }}
     >
-      <Title>
-        Hello. My name is Alex and I'm a Fraud Analyst at Oracle by day.
-      </Title>
-      <Img src={hero}></Img>
+      <Container>
+        <Navigation theme={theme} />
 
-      <AboutContainer>
-        <AboutSection>
-          I'm an enthusiastic, self-motivated, reliable, responsible and
-          hardworking person. I'm a mature team worker and adaptable to all
-          challenging situations.
-        </AboutSection>
-        <Fade />
-      </AboutContainer>
-      <DutiesContainer>
-        <DutiesSection>
-          I monitor, diagnose and disposition fraudulent transactions through
-          the use of fraud prevention technologies. Analyze trends and process
-          data collection and metrics.
-        </DutiesSection>
-        <Fade />
-      </DutiesContainer>
+        <Row style={{ marginTop: "18rem" }}>
+          <Col sm={8}>
+            <Title>
+              Hello. My name is Alex and I'm a Fraud Analyst at Oracle by day.
+            </Title>
+          </Col>
+          <Col sm={4}>
+            <Img src={hero}></Img>
+          </Col>
+        </Row>
 
-      <ButtonSection>
-        <Button>Wait... What?</Button>
-      </ButtonSection>
-    </MainContainer>
+        <Row className="mt-5">
+          <Col xs={6}>
+            <About>
+              I'm an enthusiastic, self-motivated, reliable, responsible and
+              hardworking person. I'm a mature team worker and adaptable to all
+              challenging situations.
+            </About>
+            <Fade />
+          </Col>
+          <Col xs={6}>
+            <Duties>
+              I monitor, diagnose and disposition fraudulent transactions
+              through the use of fraud prevention technologies. Analyze trends
+              and process data collection and metrics.
+            </Duties>
+            <Fade />
+          </Col>
+        </Row>
+
+        <Row className="mt-5">
+          <Col></Col>
+          <Col className="text-center">
+            <Button>Wait... What?</Button>
+          </Col>
+          <Col></Col>
+        </Row>
+      </Container>
+    </motion.div>
   );
 }
-
-const MainContainer = styled(motion.div)`
-  display: grid;
-  column-gap: 3rem;
-  row-gap: 3rem;
-  grid-template-columns: 23rem 23rem 23rem 23rem;
-  grid-template-rows: auto;
-  grid-template-areas:
-    "title title title photo"
-    "about about duties duties"
-    ". button button .";
-  // margin: 0 60rem 0 40rem;
-  padding-top: 22rem;
-  text-align: start;
-`;
 
 const Title = styled.h1`
   grid-area: title;
@@ -79,26 +90,15 @@ const Img = styled.img`
   position: relative;
 `;
 
-const AboutContainer = styled.div`
-  grid-area: about;
-  position: relative;
-`;
-
-const AboutSection = styled.p`
+const About = styled.p`
   position: relative;
   font-size: 2.5rem;
   padding-right: 1rem;
 `;
 
-const DutiesContainer = styled.div`
-  grid-area: duties;
-  position: relative;
-`;
-
-const DutiesSection = styled.p`
+const Duties = styled.p`
   position: relative;
   font-size: 2.5rem;
-  padding-left: 1rem;
 `;
 
 const Fade = styled.p`
@@ -112,11 +112,6 @@ const Fade = styled.p`
   background-image: linear-gradient(to bottom, transparent, white);
 `;
 
-const ButtonSection = styled.div`
-  grid-area: button;
-  position: relative;
-  justify-self: center;
-`;
 const Button = styled.button`
   background-color: #4caf50;
   border: none;

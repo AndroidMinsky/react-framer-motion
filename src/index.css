@@ -49,7 +49,6 @@ dt,
 dd,
 ol,
 ul,
-li,
 fieldset,
 form,
 label,
@@ -91,8 +90,14 @@ video {
   font-family: "Work Sans", sans-serif;
 }
 
+body {
+  background-color: #14171a;
+  height: 100%;
+}
+
 p,
-button {
+button,
+li {
   font-family: "Open Sans", sans-serif;
 }
 
