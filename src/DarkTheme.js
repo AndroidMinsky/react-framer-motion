@@ -1,20 +1,41 @@
 import React from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
+import { Switch, Route, NavLink, useRouteMatch } from "react-router-dom";
 
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
-import heroDark from "./assets/me-dark.png";
-
 import Projects from "./Projects";
+import Contacts from "./Contacts";
 import Navigation from "./Navigation";
+import Footer from "./Footer";
 
 export default function DarkTheme() {
   const theme = {
     color: "white",
   };
+  const activeClassName = "nav-item-active";
+
+  const StyledLink = styled(NavLink).attrs({ activeClassName })`
+    font-size: 4rem;
+    padding: 0 2rem;
+    color: #979797;
+    text-decoration: none;
+
+    &.${activeClassName} {
+      color: white;
+      text-decoration: underline;
+    }
+
+    &:hover {
+      color: white;
+      text-decoration: underline;
+    }
+  `;
+
+  let { path, url } = useRouteMatch();
 
   return (
     <motion.div
@@ -45,20 +66,30 @@ export default function DarkTheme() {
             </Title>
           </Col>
           <Col sm={4}>
-            <Img src={heroDark} />
+            <Img src={process.env.PUBLIC_URL + "/assets/me-dark.png"} />
           </Col>
         </Row>
 
         <Main>
           <Nav>
-            <Link active>Projects</Link>
-            <Link>Experience</Link>
-            <Link>Contacts</Link>
+            <StyledLink exact to={`${url}`}>
+              Projects
+            </StyledLink>
+            <StyledLink to={`${url}/about`}>About</StyledLink>
+            <StyledLink to={`${url}/contacts`}>Contacts</StyledLink>
           </Nav>
 
-          <Projects />
+          <Switch>
+            <Route path={`${path}/contacts`} children={<Contacts />} />
+            <Route exact path={`${path}`} children={<Projects />} />
+          </Switch>
         </Main>
       </Container>
+      <FooterSection>
+        <Container>
+          <Footer />
+        </Container>
+      </FooterSection>
     </motion.div>
   );
 }
@@ -83,7 +114,7 @@ const Img = styled.img`
 `;
 
 const Main = styled.div`
-  margin: 15rem 0 5rem 0;
+  margin-top: 15rem;
 `;
 
 const Nav = styled.ul`
@@ -93,9 +124,6 @@ const Nav = styled.ul`
   align-items: center;
 `;
 
-const Link = styled.li`
-  font-size: 4rem;
-  padding: 0 2rem;
-  color: ${(props) => (props.active ? "white" : "#979797")};
-  text-decoration: ${(props) => (props.active ? "underline" : "none")};
+const FooterSection = styled.div`
+  background: #292d37;
 `;

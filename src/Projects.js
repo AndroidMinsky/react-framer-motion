@@ -1,16 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
-import cardImg1 from "./assets/card-img1.png";
-import cardImg2 from "./assets/card-img2.png";
-import cardImg3 from "./assets/card-img3.png";
+import projects from "./data";
+import ModalWindow from "./ModalWindow";
 
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
 export default function Projects() {
+  const [show, setShow] = useState(false);
+  const [id, setId] = useState("");
+  const handleModal = (id) => {
+    setId(id);
+    setShow(true);
+  };
   return (
-    <>
+    <div>
       <Tags>
         <Tag active>everything</Tag>
         <Tag># react</Tag>
@@ -22,42 +27,25 @@ export default function Projects() {
       </Tags>
       <Cards>
         <Row xs={1} md={2} lg={3}>
-          <Col>
-            <Card>
-              <ImageSection>
-                <Img src={cardImg1} />
-              </ImageSection>
-              <TitleSection>
-                <Title>Fortnite API</Title>
-              </TitleSection>
-            </Card>
-          </Col>
-          <Col>
-            <Card>
-              <ImageSection>
-                <Img src={cardImg2} />
-              </ImageSection>
-              <TitleSection>
-                <Title>Jobs Board</Title>
-              </TitleSection>
-            </Card>
-          </Col>
-          <Col>
-            <Card>
-              <ImageSection>
-                <Img src={cardImg3} />
-              </ImageSection>
-              <TitleSection>
-                <Title>Invoice App</Title>
-              </TitleSection>
-            </Card>
-          </Col>
+          {projects.map((project) => (
+            <Col key={project.id}>
+              <Card onClick={() => handleModal(project.id)}>
+                <ImageSection>
+                  <Img src={process.env.PUBLIC_URL + project.image} />
+                </ImageSection>
+                <TitleSection>
+                  <Title>{project.title}</Title>
+                </TitleSection>
+              </Card>
+            </Col>
+          ))}
         </Row>
       </Cards>
       <Hire>
         <Button>Hire Me</Button>
       </Hire>
-    </>
+      {id && <ModalWindow show={show} close={() => setShow(false)} id={id} />}
+    </div>
   );
 }
 
@@ -69,7 +57,7 @@ const Tags = styled.div`
 `;
 
 const Tag = styled.button`
-  background-color: ${(props) => (props.active ? "#f95d7f" : "#797eee")};
+  background-color: ${(props) => (props.active ? "#c66aab" : "#797eee")};
   border: none;
   color: white;
   padding: 1rem 2.5rem;
@@ -84,7 +72,7 @@ const Cards = styled.div`
 `;
 
 const Card = styled.div`
-  background-color: #1c1f25;
+  background-color: #292d37;
   color: white;
   height: 33rem;
   border-radius: 1rem;
@@ -113,16 +101,15 @@ const Title = styled.h1`
 
 const Hire = styled.div`
   text-align: center;
-  padding-bottom: 5rem;
+  margin-bottom: 5rem;
 `;
 
 const Button = styled.button`
-  background-color: #2b4cf3;
+  background: linear-gradient(to right, #f15e86, #b26fbc 70%);
   border: none;
   color: white;
-  padding: 1.5rem 5rem;
+  padding: 1.5rem 8rem;
   text-decoration: none;
   border-radius: 1rem;
   font-size: 2rem;
-  box-shadow: 0 0.5rem 2.5rem rgba(52, 96, 241, 0.6);
 `;

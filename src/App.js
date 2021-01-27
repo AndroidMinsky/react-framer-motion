@@ -1,17 +1,33 @@
+import { useState, useEffect } from "react";
 import styled from "styled-components";
-import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { Switch, useLocation, Route, useHistory } from "react-router-dom";
+
 import ToggleButton from "./ToggleButton";
 import LightTheme from "./LightTheme";
 import DarkTheme from "./DarkTheme";
 
 function App() {
-  const [dark, setDark] = useState(false);
   const [width, setWidth] = useState(0);
 
+  let location = useLocation();
+  let history = useHistory();
+
+  useEffect(() => {
+    if (location.pathname.startsWith("/dark")) {
+      setWidth("-75vw");
+    }
+  }, [location]);
+
+  useEffect(() => {
+    if (history.action === "POP" && location.pathname === "/") {
+      setWidth(0);
+    }
+  }, [location, history]);
+
   const themeToggle = () => {
-    setDark(!dark);
     width === 0 ? setWidth("-75vw") : setWidth(0);
+    location.pathname === "/" ? history.push("/dark") : history.push("/");
   };
 
   return (
@@ -29,7 +45,10 @@ function App() {
 
       <MainSection>
         <AnimatePresence exitBeforeEnter initial={false}>
-          {dark ? <DarkTheme key="dark" /> : <LightTheme key="light" />}
+          <Switch location={location} key={location.key}>
+            <Route path="/dark" children={<DarkTheme key="dark" />} />
+            <Route exact path="/" children={<LightTheme key="light" />} />
+          </Switch>
         </AnimatePresence>
       </MainSection>
     </>
@@ -39,6 +58,7 @@ function App() {
 export default App;
 
 const WhiteSection = styled(motion.div)`
+  min-height: 100vh;
   height: 100%;
   width: 85vw;
   background: white;
@@ -46,7 +66,7 @@ const WhiteSection = styled(motion.div)`
 `;
 
 const MainSection = styled.div`
-  height: 100vh;
-  width: 100vw;
+  height: 100%;
+  width: 100%;
   background: #14171a;
 `;

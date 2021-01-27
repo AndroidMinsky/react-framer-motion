@@ -1,5 +1,6 @@
 import React from "react";
 import styled, { ThemeProvider } from "styled-components";
+import { Link } from "react-router-dom";
 
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -13,9 +14,9 @@ export default function Navigation({ theme }) {
         </Col>
         <Nav>
           <Menu props>
-            <Link>About Me</Link>
-            <Link>Works</Link>
-            <Link>Contacts</Link>
+            <StyledLink to="/dark/about">About Me</StyledLink>
+            <StyledLink to="/dark">Works</StyledLink>
+            <StyledLink to="/dark/contacts">Contacts</StyledLink>
           </Menu>
         </Nav>
         <Col></Col>
@@ -39,10 +40,10 @@ const Menu = styled.ul`
   display: flex;
   list-style-type: none;
   justify-content: center;
-  color: ${(props) => props.theme.color};
 `;
 
-const Link = styled.li`
+const StyledLink = styled(Link)`
   font-size: 2rem;
   padding: 0 1.5rem;
+  color: ${(props) => props.theme.color};
 `;

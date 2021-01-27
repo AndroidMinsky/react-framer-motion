@@ -93,6 +93,7 @@ video {
 body {
   background-color: #14171a;
   height: 100%;
+  position: relative;
 }
 
 p,
@@ -105,4 +106,18 @@ li {
 *:before,
 *:after {
   box-sizing: inherit;
+}
+
+#root {
+  position: relative;
+  height: 100%;
+  z-index: 10;
+}
+
+#portal {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
 }

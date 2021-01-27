@@ -1,13 +1,14 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
-import hero from "./assets/me-light.png";
 
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
 import Navigation from "./Navigation";
+import Footer from "./Footer";
 
 export default function LightTheme() {
   const theme = {
@@ -42,11 +43,11 @@ export default function LightTheme() {
             </Title>
           </Col>
           <Col sm={4}>
-            <Img src={hero}></Img>
+            <Img src={process.env.PUBLIC_URL + "/assets/me-light.png"}></Img>
           </Col>
         </Row>
 
-        <Row className="mt-5">
+        <Row className="mt-5 ">
           <Col xs={6}>
             <About>
               I'm an enthusiastic, self-motivated, reliable, responsible and
@@ -65,13 +66,17 @@ export default function LightTheme() {
           </Col>
         </Row>
 
-        <Row className="mt-5">
+        <Row className="mt-5 mb-5">
           <Col></Col>
           <Col className="text-center">
-            <Button>Wait... What?</Button>
+            <Link to="/dark">
+              <Button>Wait... What?</Button>
+            </Link>
           </Col>
           <Col></Col>
         </Row>
+
+        <Footer />
       </Container>
     </motion.div>
   );
@@ -113,11 +118,16 @@ const Fade = styled.p`
 `;
 
 const Button = styled.button`
-  background-color: #4caf50;
+  // background: linear-gradient(to right, #503cff, #2b9fff 70%);
+  background: #797eee;
   border: none;
   color: white;
   padding: 15px 32px;
   text-decoration: none;
   border-radius: 1rem;
   font-size: 2rem;
+
+  &:focus {
+    outline: none;
+  }
 `;
