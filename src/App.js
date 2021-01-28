@@ -45,7 +45,7 @@ function App() {
 
       <MainSection>
         <AnimatePresence exitBeforeEnter initial={false}>
-          <Switch location={location} key={location.key}>
+          <Switch location={location}>
             <Route path="/dark" children={<DarkTheme key="dark" />} />
             <Route exact path="/" children={<LightTheme key="light" />} />
           </Switch>

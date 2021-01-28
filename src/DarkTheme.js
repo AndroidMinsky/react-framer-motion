@@ -1,7 +1,13 @@
 import React from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
-import { Switch, Route, NavLink, useRouteMatch } from "react-router-dom";
+import {
+  Switch,
+  Route,
+  NavLink,
+  useRouteMatch,
+  useLocation,
+} from "react-router-dom";
 
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
@@ -35,6 +41,7 @@ export default function DarkTheme() {
     }
   `;
 
+  const location = useLocation();
   let { path, url } = useRouteMatch();
 
   return (
@@ -79,10 +86,29 @@ export default function DarkTheme() {
             <StyledLink to={`${url}/contacts`}>Contacts</StyledLink>
           </Nav>
 
-          <Switch>
-            <Route path={`${path}/contacts`} children={<Contacts />} />
-            <Route exact path={`${path}`} children={<Projects />} />
-          </Switch>
+          <motion.div
+            key={location.key}
+            initial={{
+              opacity: 0,
+            }}
+            animate={{
+              opacity: 1,
+              transition: {
+                delay: 0.2,
+              },
+            }}
+            exit={{
+              opacity: 0,
+              transition: {
+                delay: 0.1,
+              },
+            }}
+          >
+            <Switch>
+              <Route path={`${path}/contacts`} children={<Contacts />} />
+              <Route exact path={`${path}`} children={<Projects />} />
+            </Switch>
+          </motion.div>
         </Main>
       </Container>
       <FooterSection>
