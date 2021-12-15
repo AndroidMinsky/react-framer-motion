@@ -45,7 +45,10 @@ function App() {
 
       <MainSection>
         <AnimatePresence exitBeforeEnter initial={false}>
-          <Switch location={location} key={location.key}>
+          <Switch
+            location={location}
+            key={location.pathname.split("/").slice(0, 2).join("/")}
+          >
             <Route path="/dark" children={<DarkTheme key="dark" />} />
             <Route exact path="/" children={<LightTheme key="light" />} />
           </Switch>

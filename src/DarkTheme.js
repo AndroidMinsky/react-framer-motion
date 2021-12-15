@@ -1,7 +1,13 @@
 import React from "react";
 import styled from "styled-components";
-import { motion } from "framer-motion";
-import { Switch, Route, NavLink, useRouteMatch } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  Switch,
+  Route,
+  NavLink,
+  useRouteMatch,
+  useLocation,
+} from "react-router-dom";
 
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
@@ -11,15 +17,19 @@ import Projects from "./Projects";
 import Contacts from "./Contacts";
 import Navigation from "./Navigation";
 import Footer from "./Footer";
+import About from "./About";
 
 export default function DarkTheme() {
+  let { path, url } = useRouteMatch();
+  let location = useLocation();
+
   const theme = {
     color: "white",
   };
   const activeClassName = "nav-item-active";
 
   const StyledLink = styled(NavLink).attrs({ activeClassName })`
-    font-size: 4rem;
+    font-size: 3.5rem;
     padding: 0 2rem;
     color: #979797;
     text-decoration: none;
@@ -35,8 +45,6 @@ export default function DarkTheme() {
     }
   `;
 
-  let { path, url } = useRouteMatch();
-
   return (
     <motion.div
       initial={{
@@ -45,13 +53,13 @@ export default function DarkTheme() {
       animate={{
         opacity: 1,
         transition: {
-          delay: 0.2,
+          delay: 0.1,
         },
       }}
       exit={{
         opacity: 0,
         transition: {
-          delay: 0.1,
+          delay: 0.2,
         },
       }}
     >
@@ -79,10 +87,15 @@ export default function DarkTheme() {
             <StyledLink to={`${url}/contacts`}>Contacts</StyledLink>
           </Nav>
 
-          <Switch>
-            <Route path={`${path}/contacts`} children={<Contacts />} />
-            <Route exact path={`${path}`} children={<Projects />} />
-          </Switch>
+          <AnimatePresence exitBeforeEnter>
+            <Switch key={location.pathname} location={location}>
+              <Route path={`${path}/contacts`} children={<Contacts />} />
+              <Route path={`${path}/about`}>
+                <About />
+              </Route>
+              <Route exact path={`${path}`} children={<Projects />} />
+            </Switch>
+          </AnimatePresence>
         </Main>
       </Container>
       <FooterSection>
@@ -94,11 +107,10 @@ export default function DarkTheme() {
   );
 }
 
-const Title = styled(motion.h1)`
-  grid-area: title;
+const Title = styled.h1`
   color: white;
   font-size: 9rem;
-  position: relative;
+  line-height: 1em;
 `;
 
 const Gradient = styled.h1`

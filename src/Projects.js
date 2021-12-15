@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { motion } from "framer-motion";
 
 import projects from "./data";
 import ModalWindow from "./ModalWindow";
@@ -15,7 +16,20 @@ export default function Projects() {
     setShow(true);
   };
   return (
-    <div>
+    <motion.div
+      initial={{
+        opacity: 0,
+      }}
+      animate={{
+        opacity: 1,
+      }}
+      exit={{
+        opacity: 0,
+        transition: {
+          delay: 0.2,
+        },
+      }}
+    >
       <Tags>
         <Tag active>everything</Tag>
         <Tag># react</Tag>
@@ -45,7 +59,7 @@ export default function Projects() {
         <Button>Hire Me</Button>
       </Hire>
       {id && <ModalWindow show={show} close={() => setShow(false)} id={id} />}
-    </div>
+    </motion.div>
   );
 }
 

@@ -90,9 +90,15 @@ video {
   font-family: "Work Sans", sans-serif;
 }
 
+/* html {
+  height: 100%;
+  width: 100%;
+} */
+
 body {
   background-color: #14171a;
   height: 100%;
+  width: 100%;
   position: relative;
 }
 
